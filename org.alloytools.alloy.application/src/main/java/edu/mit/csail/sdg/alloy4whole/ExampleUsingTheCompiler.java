@@ -63,23 +63,24 @@ public final class ExampleUsingTheCompiler {
         for (String filename : args) {
 
             // Parse+typecheck the model
-            System.out.println("=========== Parsing+Typechecking " + filename + " =============");
+            // System.out.println("=========== Parsing+Typechecking " + filename + " =============");
             Module world = CompUtil.parseEverything_fromFile(rep, null, filename);
 
             // Choose some default options for how you want to execute the
             // commands
             A4Options options = new A4Options();
+            options.originalFilename = filename;
 
-            options.solver = A4Options.SatSolver.SAT4J;
+            options.solver = A4Options.SatSolver.CNF;
 
             for (Command command : world.getAllCommands()) {
                 // Execute the command
-                System.out.println("============ Command " + command + ": ============");
+                // System.out.println("============ Command " + command + ": ============");
                 A4Solution ans = TranslateAlloyToKodkod.execute_command(rep, world.getAllReachableSigs(), command, options);
                 // Print the outcome
-                System.out.println(ans);
+                // System.out.println(ans);
                 // If satisfiable...
-                if (ans.satisfiable()) {
+                /*if (ans.satisfiable()) {
                     // You can query "ans" to find out the values of each set or
                     // type.
                     // This can be useful for debugging.
@@ -93,7 +94,7 @@ public final class ExampleUsingTheCompiler {
                     } else {
                         viz.loadXML("alloy_example_output.xml", true);
                     }
-                }
+                } */
             }
         }
     }

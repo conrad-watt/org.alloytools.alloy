@@ -1399,8 +1399,12 @@ public final class A4Solution {
             return null;
         }
         if (opt.solver.equals(SatSolver.CNF)) {
-            File tmpCNF = File.createTempFile("tmp", ".cnf", new File(opt.tempDirectory));
-            String out = tmpCNF.getAbsolutePath();
+            // File tmpCNF = File.createTempFile("tmp", ".cnf", new File(opt.tempDirectory));
+            // String out = tmpCNF.getAbsolutePath();
+            String out = opt.originalFilename;
+            if (out.endsWith(".als")) {
+              out = out.substring(0, out.lastIndexOf(".als")) + ".cnf";
+            }
             solver.options().setSolver(WriteCNF.factory(out));
             try {
                 sol = solver.solve(fgoal, bounds);

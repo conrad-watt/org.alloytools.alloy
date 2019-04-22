@@ -87,6 +87,7 @@ final class WriteCNF implements SATSolver {
      * solving it.
      */
     private WriteCNF(String filename) {
+        // System.out.println(filename);
         try {
             this.cnf = new RandomAccessFile(filename, "rw");
             this.cnf.setLength(0);
